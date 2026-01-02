@@ -113,7 +113,9 @@ include 'topo.php';
 ?>
 
 <style>
-    /* Slider e Cards */
+    /* =========================================
+       ESTILOS GERAIS E SLIDER
+       ========================================= */
     .slider-container { width: 100%; max-width: 1200px; height: 250px; margin: 20px auto; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
     .slider-wrapper { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease-in-out; }
     .slider-slide { min-width: 100%; height: 100%; }
@@ -124,16 +126,22 @@ include 'topo.php';
     .dot { width: 12px; height: 12px; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; cursor: pointer; transition: 0.3s; border: 2px solid transparent; }
     .dot:hover, .dot.active { background-color: white; border-color: var(--azul-primario); transform: scale(1.2); }
     
+    /* CATEGORIAS (Banners Pequenos) */
     .banner-cat-link { flex: 1; min-width: 200px; height: 110px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration: none; transition: transform 0.2s; }
     .banner-cat-link:hover { transform: translateY(-3px); }
     .banner-cat-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
     .banner-cat-text { position: absolute; bottom: 10px; left: 15px; color: white; font-size: 18px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
 
-    /* CARROSSEL ANÚNCIOS */
+    /* CARROSSEL DE ANÚNCIOS */
     .ads-carousel-wrapper { position: relative; padding: 0 10px; }
     .ads-track-container { overflow-x: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
     .ads-track { display: flex; gap: 15px; padding: 10px 2px 20px 2px; }
-    .ads-card-slide { flex: 0 0 calc((100% - 75px) / 6); min-width: 160px; text-decoration: none; color: inherit; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; display: flex; flex-direction: column; }
+    .ads-card-slide {
+        flex: 0 0 calc((100% - 75px) / 6); 
+        min-width: 160px;
+        text-decoration: none; color: inherit; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;
+        display: flex; flex-direction: column;
+    }
     .ads-card-slide:hover { transform: translateY(-5px); }
     .ads-card-img { width: 100%; height: 140px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; }
     .ads-card-body { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
@@ -141,83 +149,73 @@ include 'topo.php';
     .ads-nav-btn:hover { background: var(--azul-primario); color: white; }
     .ads-prev { left: -15px; } .ads-next { right: -15px; }
 
-    /* GRID PORTAL */
+    /* =========================================
+       LAYOUT DO PORTAL DE NOTÍCIAS (CORRIGIDO)
+       ========================================= */
     .portal-container { height: 440px; }
     .portal-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; height: 100%; }
-    .destaque-principal { position: relative; height: 100%; border-radius: 12px; overflow: hidden; text-decoration: none; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+    /* --- ARTIGO DESTAQUE (ESQUERDA) --- */
+    .destaque-principal {
+        position: relative; height: 100%; border-radius: 12px; overflow: hidden;
+        text-decoration: none; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
     .destaque-principal img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .destaque-principal:hover img { transform: scale(1.03); }
-    .destaque-overlay { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 30px; box-sizing: border-box; }
-    .destaque-tag { background: var(--azul-primario); color: white; padding: 4px 12px; font-size: 12px; font-weight: bold; border-radius: 4px; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
-    .destaque-titulo { color: white; font-size: 26px; margin: 0; font-weight: 800; line-height: 1.2; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+    .destaque-overlay {
+        position: absolute; bottom: 0; left: 0; width: 100%; 
+        background: linear-gradient(transparent, rgba(0,0,0,0.9)); 
+        padding: 30px; box-sizing: border-box;
+    }
+    .destaque-tag { background: var(--azul-primario); color: white; padding: 4px 12px; font-size: 12px; font-weight: bold; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
+    
+    /* COR BRANCA FORÇADA PARA O TÍTULO DO DESTAQUE */
+    .destaque-titulo { 
+        color: white !important; 
+        font-size: 26px; margin: 0; font-weight: 800; line-height: 1.2; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); 
+    }
+    
+    /* RESUMO DO DESTAQUE */
+    .destaque-resumo {
+        color: #f0f0f0; font-size: 14px; margin: 8px 0 0 0; line-height: 1.4; opacity: 0.9;
+    }
+
+    /* --- GRID LATERAL (DIREITA) --- */
     .lista-lateral-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 20px; height: 100%; }
     .item-lateral-card { display: flex; flex-direction: column; text-decoration: none; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; overflow: hidden; height: 100%; }
     .item-lateral-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     .lateral-img-card { width: 100%; height: 110px; object-fit: cover; }
     .lateral-info-card { padding: 12px; display: flex; flex-direction: column; justify-content: center; flex-grow: 1; }
     .lateral-tag { color: var(--azul-primario); font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
-    .lateral-titulo { color: #333; font-size: 14px; font-weight: bold; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-    /* =========================================================================
-       CSS CORRIGIDO PARA PÁGINA DE LEITURA DE ARTIGO (RESPONSIVO)
-       ========================================================================= */
+    .lateral-titulo { color: #333; font-size: 14px; font-weight: bold; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     
-    /* Imagem de Capa do Artigo */
-    .article-header-img { 
-        width: 100%; 
-        max-height: 400px; /* Limita a altura para não ocupar a tela toda */
-        object-fit: cover; /* Corta a imagem se necessário para preencher */
-        border-radius: 12px; 
-        margin-bottom: 25px; 
+    /* RESUMO LATERAL */
+    .lateral-resumo {
+        color: #666; font-size: 12px; margin: 5px 0 0 0; line-height: 1.3;
     }
 
-    /* Conteúdo do Texto do Artigo */
-    .article-content { 
-        font-size: 18px; 
-        line-height: 1.8; 
-        color: #444; 
-    }
-    
-    /* Parágrafos e Títulos */
+    /* PÁGINA DO ARTIGO */
+    .article-header-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; margin-bottom: 25px; }
+    .article-content { font-size: 18px; line-height: 1.8; color: #444; }
     .article-content p { margin-bottom: 20px; text-align: justify; }
     .article-content h2, .article-content h3 { color: var(--azul-primario); margin-top: 35px; margin-bottom: 15px; }
     .article-content ul, .article-content ol { margin-bottom: 20px; padding-left: 20px; }
     .article-content li { margin-bottom: 10px; }
-
-    /* IMAGENS NO MEIO DO TEXTO (CORREÇÃO DE TAMANHO) */
-    .article-content img,
-    .artigo-img-container img { 
-        max-width: 100%; /* Nunca ultrapassa a largura da caixa branca */
-        height: auto;    /* Mantém a proporção correta */
-        display: block;  /* Evita espaços estranhos */
-        margin: 30px auto; /* Centraliza horizontalmente */
-        border-radius: 8px; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave */
-    }
+    .article-content img, .artigo-img-container img { max-width: 100%; height: auto; display: block; margin: 30px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .article-content figcaption, .artigo-img-container figcaption { text-align: center; font-size: 14px; color: #777; font-style: italic; margin-top: -20px; margin-bottom: 30px; }
     
-    /* Legenda das imagens */
-    .article-content figcaption,
-    .artigo-img-container figcaption {
-        text-align: center;
-        font-size: 14px;
-        color: #777;
-        font-style: italic;
-        margin-top: -20px; /* Aproxima da imagem */
-        margin-bottom: 30px;
-    }
-    
-    /* Responsividade Geral */
+    /* Responsividade */
+    @media (max-width: 1024px) { .ads-card-slide { flex: 0 0 calc((100% - 45px) / 4); } }
     @media (max-width: 900px) {
         .portal-container { height: auto; }
         .portal-grid { grid-template-columns: 1fr; height: auto; } 
         .destaque-principal { height: 300px; margin-bottom: 20px; }
         .lista-lateral-grid { height: auto; }
     }
-    @media (max-width: 1024px) { .ads-card-slide { flex: 0 0 calc((100% - 45px) / 4); } }
     @media (max-width: 768px) { 
         .slider-container { height: 180px; } 
         .ads-card-slide { flex: 0 0 calc((100% - 15px) / 2); } 
-        .article-content { font-size: 16px; } /* Texto menor no celular */
+        .article-content { font-size: 16px; } 
     }
 </style>
 
@@ -294,22 +292,35 @@ include 'topo.php';
         <?php if(count($ultimos_artigos) > 0): ?>
             <div class="portal-container">
                 <div class="portal-grid">
-                    <?php $destaque = $ultimos_artigos[0]; ?>
+                    <?php 
+                        // Destaque Principal
+                        $destaque = $ultimos_artigos[0];
+                        // Resumo de 20 chars
+                        $txt_destaque = !empty($destaque['resumo']) ? $destaque['resumo'] : strip_tags($destaque['conteudo']);
+                        $resumo_destaque = mb_substr($txt_destaque, 0, 20) . '...';
+                    ?>
                     <a href="index.php?page=ler_artigo&id=<?= $destaque['id'] ?>" class="destaque-principal">
                         <img src="<?= $destaque['imagem'] ?: 'https://via.placeholder.com/800x600?text=Novidade' ?>">
                         <div class="destaque-overlay">
                             <span class="destaque-tag"><?= htmlspecialchars($destaque['categoria']) ?></span>
                             <h3 class="destaque-titulo"><?= htmlspecialchars($destaque['titulo']) ?></h3>
+                            <p class="destaque-resumo"><?= htmlspecialchars($resumo_destaque) ?></p>
                         </div>
                     </a>
 
                     <div class="lista-lateral-grid">
-                        <?php for($i = 1; $i < count($ultimos_artigos); $i++): $art = $ultimos_artigos[$i]; ?>
+                        <?php for($i = 1; $i < count($ultimos_artigos); $i++): 
+                            $art = $ultimos_artigos[$i];
+                            // Resumo de 20 chars
+                            $txt_art = !empty($art['resumo']) ? $art['resumo'] : strip_tags($art['conteudo']);
+                            $resumo_art = mb_substr($txt_art, 0, 20) . '...';
+                        ?>
                             <a href="index.php?page=ler_artigo&id=<?= $art['id'] ?>" class="item-lateral-card">
                                 <img src="<?= $art['imagem'] ?: 'https://via.placeholder.com/300x200' ?>" class="lateral-img-card">
                                 <div class="lateral-info-card">
                                     <span class="lateral-tag"><?= htmlspecialchars($art['categoria']) ?></span>
                                     <h4 class="lateral-titulo"><?= htmlspecialchars($art['titulo']) ?></h4>
+                                    <p class="lateral-resumo"><?= htmlspecialchars($resumo_art) ?></p>
                                 </div>
                             </a>
                         <?php endfor; ?>
