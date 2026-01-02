@@ -1,9 +1,11 @@
+
 name: Deploy via FTP
 
 on:
   push:
     branches:
-      - main  # O envio ocorrerá sempre que você atualizar a branch 'main'
+      - main  # Mantém o deploy automático ao fazer push
+  workflow_dispatch: # Adiciona o gatilho manual via interface
 
 jobs:
   web-deploy:
