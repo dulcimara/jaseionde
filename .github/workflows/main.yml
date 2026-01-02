@@ -1,0 +1,24 @@
+name: Deploy via FTP
+
+on:
+  push:
+    branches:
+      - main  # O envio ocorrerá sempre que você atualizar a branch 'main'
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Pegando o código mais recente
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 📂 Enviando para o servidor via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ./public_html/  # Caminho da pasta dentro do seu servidor
