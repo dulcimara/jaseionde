@@ -1,11 +1,11 @@
-
-name: Deploy via FTP
+name: Deploy via FTP (Locaweb)
 
 on:
   push:
     branches:
-      - principal  # Deploy automático ao fazer push na branch principal
-  workflow_dispatch: # Permite rodar manualmente pelo GitHub Actions
+      - principal
+      - main
+  workflow_dispatch:
 
 jobs:
   web-deploy:
@@ -13,15 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🚚 Pegando o código mais recente
+      - name: 🚚 Checkout do código
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: 📂 Enviando para o servidor via FTP
+      - name: 📂 Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
           server-dir: public_html/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.github/**
