@@ -1,0 +1,1 @@
+Alteração index. texto branco
